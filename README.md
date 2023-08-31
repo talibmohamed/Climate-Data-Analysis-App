@@ -4,7 +4,7 @@
 
 Welcome to the Climate Data Evaluation Tool repository! This tool is designed to facilitate the evaluation of climate model simulations and reanalysis data, allowing users to compare and analyze observed and simulated climate data. The tool provides various metrics, graphs, and visualizations to assess the performance of climate models.
 
-## Features
+## Features.
 
 - Data Import: Easily import observation and simulation data for analysis.
 - Data Validation: Validate data for consistency and completeness.
