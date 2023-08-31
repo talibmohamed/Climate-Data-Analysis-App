@@ -443,7 +443,7 @@ ui <- fluidPage(
                  p("N'hésitez pas à nous contacter pour toute question, suggestion ou observation. Nous sommes honorés de compter des esprits dévoués à la recherche et à l'exploration climatiques parmi notre communauté d'utilisateurs."),
                  p("Nous tenons à remercier toute l'équipe pour leur contribution à la réalisation de cette application destinée à répondre aux besoins analytiques en matière de comparaison modèle-observation."),
                  p("Vous pouvez trouver le code source de cette application sur notre ", 
-                   tags$a("profil GitHub", href = "https://github.com/talibmohamed")),
+                   tags$a("profil GitHub", href = "https://github.com/talibmohamed/Climate-Data-Analysis-App")),
                  
         )
         
