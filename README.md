@@ -22,5 +22,3 @@ Contributions to the project are welcome! If you have any suggestions, bug repor
 you can find in the repository 2 files (simulation and observation) to try the tool 
 
 ## License
-
-This project is licensed under the [MIT License](LICENSE).
