@@ -1330,7 +1330,7 @@ server <- function(input, output, sessio) {
       output_file <- tempfile(fileext = ".pdf")
       # Add the code to render the R Markdown report
       rmarkdown::render(
-        "template/dynamic_report_template.Rmd",
+        "dynamic_report_template.Rmd",
         output_file = output_file,
         params = list(
           rmse_rr_report = rmse_rr,
