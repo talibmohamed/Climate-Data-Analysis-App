@@ -80,32 +80,32 @@ cat("Missing Dates: ", paste(missing_dates11, collapse = ", "))
 -   RMSE : `r params$rmse_rr_report` mm\
 -   Biais moyen : `r params$biais_rr_report` mm\
 -   Corrélation : `r params$corr_rr_report`\
--   Coefficient de Variation (CV) pour les simulations: `r params$cv_simulrr_report`%\
--   Coefficient de Variation (CV) pour les observations: `r params$cv_obsrr_report`%
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simulrr_report`\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_obsrr_report`
 
 ### Résultats pour la temperature maximale
 
 -   RMSE  : `r params$rmse_tmax_report` °C\
 -   Biais moyen: `r params$biais_tmax_report` °C\
 -   Correlation : `r params$corr_tmax_report`\
--   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmax_report`%\
--   Coefficient de Variation (CV) pour les observations: `r params$cv_obstmax_report`%
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmax_report`\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_obstmax_report`
 
 ### Résultats pour la temperature minimale
 
 -   RMSE : `r params$rmse_tmin_report` °C\
 -   Biais : `r params$biais_tmin_report` °C\
 -   Correlation : `r params$corr_tmin_report`\
--   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmin_report`%\
--   Coefficient de Variation (CV) pour les observations: `r params$cv_obstmin_report`%
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmin_report`\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_obstmin_report`
 
 ### Résultats pour la temperature moyenne
 
 -   RMSE : `r params$rmse_tmoy_report` °C\
 -   Biais moyen: `r params$biais_tmoy_report` °C\
 -   Correlation : `r params$corr_tmoy_report`\
--   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmoy`%\
--   Coefficient de Variation (CV) pour les observations: `r params$cv_simultmoy`%
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmoy`\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_simultmoy`
 
 # **III. Les représentations graphiques**
 
