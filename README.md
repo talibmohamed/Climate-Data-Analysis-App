@@ -20,5 +20,3 @@ Contributions to the project are welcome! If you have any suggestions, bug repor
 
 ## Note
 you can find in the repository 2 files (simulation and observation) to try the tool 
-
-## License
