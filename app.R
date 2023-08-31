@@ -603,29 +603,29 @@ server <- function(input, output, sessio) {
       rmse_rr <- sqrt(mean((rr_data$simul_complete - rr_data$obs_complete)^2))
       biais_rr <- mean(rr_data$simul_complete - rr_data$obs_complete)
       corr_rr <- cor(rr_data$simul_complete, rr_data$obs_complete)
-      cv_simulrr <- ((sd(rr_data$simul_complete, na.rm = TRUE) / mean(rr_data$simul_complete, na.rm = TRUE)) * 100)
-      cv_obsrr <- ((sd(rr_data$obs_complete, na.rm = TRUE) / mean(rr_data$obs_complete, na.rm = TRUE)) * 100)
+      cv_simulrr <- ((sd(rr_data$simul_complete, na.rm = TRUE) / mean(rr_data$simul_complete, na.rm = TRUE)))
+      cv_obsrr <- ((sd(rr_data$obs_complete, na.rm = TRUE) / mean(rr_data$obs_complete, na.rm = TRUE)))
       
       
       
       rmse_tmax <- sqrt(mean((tmax_data$simul_complete - tmax_data$obs_complete)^2))
       biais_tmax <- mean(tmax_data$simul_complete - tmax_data$obs_complete)
       corr_tmax <- cor(tmax_data$simul_complete, tmax_data$obs_complete)
-      cv_simultmax <- ((sd(tmax_data$simul_complete, na.rm = TRUE) / mean(tmax_data$simul_complete, na.rm = TRUE)) * 100)
-      cv_obstmax <- ((sd(tmax_data$obs_complete, na.rm = TRUE) / mean(tmax_data$obs_complete, na.rm = TRUE)) * 100)
+      cv_simultmax <- ((sd(tmax_data$simul_complete, na.rm = TRUE) / mean(tmax_data$simul_complete, na.rm = TRUE)))
+      cv_obstmax <- ((sd(tmax_data$obs_complete, na.rm = TRUE) / mean(tmax_data$obs_complete, na.rm = TRUE)))
       
       
       rmse_tmin <- sqrt(mean((tmin_data$simul_complete - tmin_data$obs_complete)^2))
       biais_tmin <- mean(tmin_data$simul_complete - tmin_data$obs_complete)
       corr_tmin <- cor(tmin_data$simul_complete, tmin_data$obs_complete)
-      cv_simultmin <- ((sd(tmin_data$simul_complete, na.rm = TRUE) / mean(tmin_data$simul_complete, na.rm = TRUE)) * 100)
-      cv_obstmin <- ((sd(tmin_data$obs_complete, na.rm = TRUE) / mean(tmin_data$obs_complete, na.rm = TRUE)) * 100)
+      cv_simultmin <- ((sd(tmin_data$simul_complete, na.rm = TRUE) / mean(tmin_data$simul_complete, na.rm = TRUE)))
+      cv_obstmin <- ((sd(tmin_data$obs_complete, na.rm = TRUE) / mean(tmin_data$obs_complete, na.rm = TRUE)))
       
       rmse_tmoy <- sqrt(mean((tmoy_data_simul - tmoy_data_obs)^2))
       biais_tmoy <- mean(tmoy_data_simul - tmoy_data_obs)
       corr_tmoy <- cor(tmoy_data_simul, tmoy_data_obs)
-      cv_simultmoy <- ((sd(tmoy_data_simul, na.rm = TRUE) / mean(tmoy_data_simul, na.rm = TRUE)) * 100)
-      cv_obstmoy <- ((sd(tmoy_data_obs, na.rm = TRUE) / mean(tmoy_data_obs, na.rm = TRUE)) * 100)
+      cv_simultmoy <- ((sd(tmoy_data_simul, na.rm = TRUE) / mean(tmoy_data_simul, na.rm = TRUE)))
+      cv_obstmoy <- ((sd(tmoy_data_obs, na.rm = TRUE) / mean(tmoy_data_obs, na.rm = TRUE)))
       
       
       
