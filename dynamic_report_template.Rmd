@@ -1,0 +1,312 @@
+---
+title: "Rapport d'Évaluation"
+output: pdf_document
+params:
+  obs_table: NA
+  missing_dates11: NA
+  
+  rmse_rr_report: NA
+  biais_rr_report: NA
+  corr_rr_report: NA
+  cv_simulrr_report: NA
+  cv_obsrr_report: NA
+
+  
+  rmse_tmax_report: NA
+  biais_tmax_report: NA
+  corr_tmax_report: NA
+  cv_simultmax_report: NA
+  cv_obstmax_report: NA
+  
+  rmse_tmin_report: NA
+  biais_tmin_report: NA
+  corr_tmin_report: NA
+  cv_simultmin_report: NA
+  cv_obstmin_report: NA
+  
+  rmse_tmoy_report: NA
+  biais_tmoy_report: NA
+  corr_tmoy_report: NA
+  cv_simultmoy_report: NA
+  cv_obstmoy_report: NA
+  
+  
+  month.abb: NA
+  moyRRa_obs: NA
+  moyRRa_simul: NA
+  moyTmaxa_obs: NA
+  moyTmaxa_simul: NA
+  moyTmina_obs: NA
+  moyTmina_simul: NA
+  moyTmoya_obs: NA
+  moyTmoya_simul: NA
+  
+  obs_rr_qq: NA
+  simul_rr_qq: NA
+  obs_tmax_qq: NA        
+  simul_tmax_qq : NA  
+  obs_tmin_qq: NA  
+  simul_tmin_qq: NA  
+  obs_tmoy_qq: NA  
+  simul_tmoy_qq: NA  
+---
+
+# **I. Contrôle de Qualité des données**
+
+## **1. Données d'Observation Manquantes (si elles existent)**
+
+```{r results='asis', echo=FALSE}
+library(knitr)
+
+# Créer une nouvelle variable pour contenir la table d'observation modifiée
+obs_table_modified <- params$obs_table
+obs_table_modified$corresponding_day <- sapply(obs_table_modified$corresponding_day, paste, collapse = ", ")
+
+# Afficher la table d'observation modifiée
+kable(obs_table_modified, format = "latex")
+```
+
+## **2. Dates de simulation manquantes (si elles existent)**
+
+```{r results='asis', echo=FALSE}
+cat("Missing Dates: ", paste(missing_dates11, collapse = ", "))
+
+```
+
+# **II. Calcules des paramétres métrique**
+
+### Résultats pour le cumul des précipitations
+
+-   RMSE : `r params$rmse_rr_report` mm\
+-   Biais moyen : `r params$biais_rr_report` mm\
+-   Corrélation : `r params$corr_rr_report`\
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simulrr_report`%\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_obsrr_report`%
+
+### Résultats pour la temperature maximale
+
+-   RMSE  : `r params$rmse_tmax_report` °C\
+-   Biais moyen: `r params$biais_tmax_report` °C\
+-   Correlation : `r params$corr_tmax_report`\
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmax_report`%\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_obstmax_report`%
+
+### Résultats pour la temperature minimale
+
+-   RMSE : `r params$rmse_tmin_report` °C\
+-   Biais : `r params$biais_tmin_report` °C\
+-   Correlation : `r params$corr_tmin_report`\
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmin_report`%\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_obstmin_report`%
+
+### Résultats pour la temperature moyenne
+
+-   RMSE : `r params$rmse_tmoy_report` °C\
+-   Biais moyen: `r params$biais_tmoy_report` °C\
+-   Correlation : `r params$corr_tmoy_report`\
+-   Coefficient de Variation (CV) pour les simulations: `r params$cv_simultmoy`%\
+-   Coefficient de Variation (CV) pour les observations: `r params$cv_simultmoy`%
+
+# **III. Les représentations graphiques**
+
+## **1. les cycles saisonniers**
+
+```{r Cycle Saisonnier, echo=FALSE, out.height="400%",fig.height = 7, out.width = "100%", }
+
+
+# Create a function for generating line plots with titles
+generate_line_plot <- function(obs_data, simul_data, ylab, ylim_value, plot_title) {
+    par(mar = c(4, 4, 2, 1))  # Adjust the margins here
+    plot(obs_data, type = "n", xlab = "Mois", ylab = ylab, ylim = c(0, ylim_value), xaxt = "n")
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = "#f8f5f0")
+    lines(obs_data, type = "o", col = "red", lwd = 2, pch = 8)
+    lines(simul_data, type = "o", col = "blue", pch = 8)
+    grid(nx = NULL, ny = NULL, lty = 2, col = "gray", lwd = 2)
+    legend("topright", legend = c("observation", "simulation"), col = c("red", "blue"), pch = 8)
+    axis(1, at = 1:12, labels = month.abb)
+    title(main = plot_title)  # Add plot title
+    options(out.width = "100%", out.height = "100%")  # Reset the output size
+
+}
+
+# Set the layout for four plots in one column
+par(mfrow = c(2, 1))
+
+# Create and display line plots for each variable with custom sizes and titles
+generate_line_plot(moyRRa_obs, moyRRa_simul, "cumul des précipitations en (mm)", 80, "Cycle Saisonnier des précipitations")
+generate_line_plot(moyTmaxa_obs, moyTmaxa_simul, "Température Maximale (°C)", 50, "Cycle Saisonnier de la Température Maximale")
+
+
+# Reset the plot layout to default
+par(mfrow = c(1, 1))
+
+```
+
+```{r Cycle Saisonnier2, echo=FALSE, out.height="400%",fig.height = 7, out.width = "100%", }
+
+
+# Create a function for generating line plots with titles
+generate_line_plot <- function(obs_data, simul_data, ylab, ylim_value, plot_title) {
+    par(mar = c(4, 4, 2, 1))  # Adjust the margins here
+    plot(obs_data, type = "n", xlab = "Mois", ylab = ylab, ylim = c(0, ylim_value), xaxt = "n")
+    rect(par("usr")[1], par("usr")[3], par("usr")[2], par("usr")[4], col = "#f8f5f0")
+    lines(obs_data, type = "o", col = "red", lwd = 2, pch = 8)
+    lines(simul_data, type = "o", col = "blue", pch = 8)
+    grid(nx = NULL, ny = NULL, lty = 2, col = "gray", lwd = 2)
+    legend("topright", legend = c("observation", "simulation"), col = c("red", "blue"), pch = 8)
+    axis(1, at = 1:12, labels = month.abb)
+    title(main = plot_title)  # Add plot title
+    options(out.width = "100%", out.height = "100%")  # Reset the output size
+
+}
+
+# Set the layout for four plots in one column
+par(mfrow = c(2, 1))
+
+# Create and display line plots for each variable with custom sizes and titles
+
+generate_line_plot(moyTmina_obs, moyTmina_simul, "Température Minimale (°C)", 50, "Cycle Saisonnier de la Température Minimale")
+generate_line_plot(moyTmoya_obs, moyTmoya_simul, "Température Moyenne (°C)", 50, "Cycle Saisonnier de la Température Moyenne")
+
+# Reset the plot layout to default
+par(mfrow = c(1, 1))
+
+```
+
+## **2. Les diagrammes quantiles-quantiles**
+
+```{r qqRR_plot,out.height="400%",fig.height = 9 , out.width = "100%", , echo=FALSE}
+
+
+# Create a function for generating QQ plots
+generate_qq_plot <- function(obs_qq, simul_qq, plot_title, width_percentage, height_percentage) {
+    options(out.width = width_percentage, out.height = height_percentage)  # Set the output size
+    par(mar = c(4, 4, 2, 1))  # Adjust the margins here
+    qqplot(obs_qq, simul_qq, xlim = c(0, 50), ylim = c(0, 70),
+           xlab = "observation", ylab = "simulation", main = plot_title, col = "steelblue")
+    abline(a = 0, b = 1, lwd = 2, col = "black")
+    grid(nx = NULL, ny = NULL, lty = 2, col = "gray", lwd = 2)
+    options(out.width = "100%", out.height = "100%")  # Reset the output size
+}
+
+# Set the layout for two plots in one column
+par(mfrow = c(2, 1))
+
+# Create and display QQ plots for each variable with custom sizes
+generate_qq_plot(obs_rr_qq, simul_rr_qq, "qqplot des précipitations", "150%", "150%")
+generate_qq_plot(obs_tmax_qq, simul_tmax_qq, "qqplot de la Température Maximale", "150%", "150%")
+
+
+
+# Reset the plot layout to default
+par(mfrow = c(1, 1))
+
+```
+
+```{r qqRR_plot2,out.height="400%",fig.height = 9 , out.width = "100%", echo=FALSE}
+
+
+# Create a function for generating QQ plots
+generate_qq_plot <- function(obs_qq, simul_qq, plot_title, width_percentage, height_percentage) {
+    options(out.width = width_percentage, out.height = height_percentage)  # Set the output size
+    par(mar = c(4, 4, 2, 1))  # Adjust the margins here
+    qqplot(obs_qq, simul_qq, xlim = c(0, 50), ylim = c(0, 70),
+           xlab = "observation", ylab = "simulation", main = plot_title, col = "steelblue")
+    abline(a = 0, b = 1, lwd = 2, col = "black")
+    grid(nx = NULL, ny = NULL, lty = 2, col = "gray", lwd = 2)
+    options(out.width = "100%", out.height = "100%")  # Reset the output size
+}
+
+# Set the layout for two plots in one column
+par(mfrow = c(2, 1))
+
+# Create and display QQ plots for each variable with custom sizes
+
+generate_qq_plot(obs_tmin_qq, simul_tmin_qq, "qqplot de la Température Minimale", "150%", "150%")
+generate_qq_plot(obs_tmoy_qq, simul_tmoy_qq, "qqplot de la Température Moyenne", "150%", "150%")
+
+
+# Reset the plot layout to default
+par(mfrow = c(1, 1))
+
+```
+
+## **3. Les diagrammes de taylors**
+
+```{r taylor_plot1,out.height="400%",fig.height = 9 , out.width = "100%", echo=FALSE}
+
+
+# Create a function for generating diagramme de taylors
+generate_taylor_diagram <- function(obs_data, simul_data, plot_title) {
+    options(out.width = "100%", out.height = "200%")  # Set the output size
+    taylor.diagram(
+        obs_data, simul_data,
+        add = FALSE, col = "steelblue",
+        pch = 16,
+        pos.cor = TRUE,
+        xlab = "Standard Deviation",
+        ylab = "",
+        main = plot_title,
+        show.gamma = TRUE,
+        ngamma = 6,
+        gamma.col = "#A356D0",
+        sd.arcs = pi,
+        ref.sd = TRUE,
+        sd.method = "sample",
+        grad.corr.lines = c(0.1, 0.3, 0.5, 0.7, 0.9),
+        pcex = 1.2,
+        cex.axis = 1.2,
+        normalize = FALSE,
+        mar = c(5, 4, 4, 2)
+    )
+    options(out.width = "100%", out.height = "100%")  # Reset the output size
+}
+par(mfrow = c(2, 1))
+
+
+# Generate and display diagramme de taylors for each variable
+generate_taylor_diagram(obs_rr_qq, simul_rr_qq, "diagramme de taylor de précipitations")
+generate_taylor_diagram(obs_tmax_qq, simul_tmax_qq, "diagramme de taylor de la Température Maximale")
+par(mfrow = c(1, 1))
+
+
+```
+
+```{r taylor_plot2,out.height="400%",fig.height = 9 , out.width = "100%", echo=FALSE}
+
+
+# Create a function for generating diagramme de taylors
+generate_taylor_diagram <- function(obs_data, simul_data, plot_title) {
+    options(out.width = "100%", out.height = "200%")  # Set the output size
+    taylor.diagram(
+        obs_data, simul_data,
+        add = FALSE, col = "steelblue",
+        pch = 16,
+        pos.cor = TRUE,
+        xlab = "Standard Deviation",
+        ylab = "",
+        main = plot_title,
+        show.gamma = TRUE,
+        ngamma = 6,
+        gamma.col = "#A356D0",
+        sd.arcs = pi,
+        ref.sd = TRUE,
+        sd.method = "sample",
+        grad.corr.lines = c(0.1, 0.3, 0.5, 0.7, 0.9),
+        pcex = 1.2,
+        cex.axis = 1.2,
+        normalize = FALSE,
+        mar = c(5, 4, 4, 2)
+    )
+    options(out.width = "100%", out.height = "100%")  # Reset the output size
+}
+par(mfrow = c(2, 1))
+
+# Generate and display diagramme de taylors for each variable
+generate_taylor_diagram(obs_tmin_qq, simul_tmin_qq, "diagramme de taylor de la Température Minimale")
+generate_taylor_diagram(obs_tmoy_qq, simul_tmoy_qq, "diagramme de taylor de la Température Moyenne")
+
+par(mfrow = c(1, 1))
+
+```
+
