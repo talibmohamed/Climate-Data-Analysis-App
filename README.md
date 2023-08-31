@@ -19,7 +19,7 @@ Welcome to the Climate Data Evaluation Tool repository! This tool is designed to
 Contributions to the project are welcome! If you have any suggestions, bug reports, or feature requests, please open an issue on this repository.
 
 ## Note
-you can find in the repository 2 files (simulation and observation) to trie the tool 
+you can find in the repository 2 files (simulation and observation) to try the tool 
 
 ## License
 
