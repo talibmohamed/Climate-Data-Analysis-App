@@ -39,7 +39,7 @@ css <- HTML("
     background-color: #662424;
     color: black;
     font-weight: bold;
-    width: 224px;
+    width: 221px;
     text-align: center;
 
 
@@ -52,7 +52,7 @@ css <- HTML("
     border-radius: 4px; /* Optional: Add rounded corners to tabs */
     transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth transition effect */
     font-weight: bold;
-    width: 224px;
+    width: 221px;
     text-align: center;
 
   }
@@ -63,7 +63,7 @@ css <- HTML("
     background-color: #662424; 
     color: black; 
     font-weight: bold;
-    width: 224px;
+    width: 221px;
     text-align: center;
 
 
@@ -139,6 +139,14 @@ ui <- fluidPage(
                    style = "color: white; background-color: #662424; border-color: #662424",
                    title = "Soumettre!",
                    onclick = "Shiny.setInputValue('btnClicked', true);"),
+      
+      # Add shinyjs code to show/hide the button
+      shinyjs::hidden(
+        actionButton("submitBtn", "Soumettre", 
+                     style = "color: white; background-color: #662424; border-color: #662424",
+                     title = "Soumettre!",
+                     onclick = "Shiny.setInputValue('btnClicked', true);")
+      ),
       downloadButton("download", "Download PDF Report", style = "display: none;"),
       br(),
       br(),
@@ -178,6 +186,7 @@ ui <- fluidPage(
           "Qualité de données",
           br(),
           fluidRow(
+            style = "margin-left: 20px;",  # Add margin to the entire row
             column(width = 6,
                    fluidRow(
                      conditionalPanel(
@@ -223,6 +232,7 @@ ui <- fluidPage(
                    )
             )
           )
+          
         ),
         
         tabPanel(
@@ -446,8 +456,6 @@ ui <- fluidPage(
                    tags$a("profil GitHub", href = "https://github.com/talibmohamed/Climate-Data-Analysis-App")),
                  
         )
-        
-        
       )
     )
   )
@@ -456,9 +464,18 @@ ui <- fluidPage(
 
 
 # Define the server
-server <- function(input, output, sessio) {
+server <- function(input, output, session) {
+  
   # Load the shinyjs package
   shinyjs::useShinyjs()
+  observe({
+    # Show the button when both files are uploaded
+    if (!is.null(input$simul) && !is.null(input$obs)) {
+      shinyjs::show("submitBtn")
+    } else {
+      shinyjs::hide("submitBtn")
+    }
+  })
   
   # Define a reactiveValues variable to track report generation status
   rv <- reactiveValues(reportGenerated = FALSE)
